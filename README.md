@@ -17,7 +17,7 @@
 
 | Machine | Requirement | Value |
 | --- | --- | --- |
-| **HP ZBook G11** | OS | Windows 11 · [WSL2](https://github.com/tkt-gemini/wsl) workflow |
+| **HP ZBook G11** | OS | Windows 11 |
 | | CPU | Intel Core Ultra 7 165H (22 cores) |
 | | RAM | 32 GB |
 | | GPU | NVIDIA RTX 1000 Ada (6 GB VRAM) |
@@ -29,16 +29,44 @@
 | | GPU | None (Intel UHD 620) |
 | | Disk | 256 GB SSD |
 
+## Architecture
+
 ```
 ┌──────────────────────────────────────┐
-│ HP ZBook G11 (Primary Workstation)   │
-│ Windows Host + WSL2                  │
+│ HP ZBook G11 - Primary Workstation   │
+├──────────────────────────────────────┤
+│ Windows Host + WSL2 workflow         │
 │ NVIDIA Driver (CUDA passthrough)     │
 └──────────────────┬───────────────────┘
                    │ Tailscale
 ┌──────────────────▼───────────────────┐
-│ Dell Latitude 7290 (Server/CI)       │
+│ Dell Latitude 7290 - Server          │
+├──────────────────────────────────────┤
 │ Ubuntu 26.04 LTS (native)            │
 │ Docker · Prometheus · Grafana        │
 └──────────────────────────────────────┘
+```
+
+## Setup
+
+### WSL
+
+Configuration for WSL2 workflow is [here](https://github.com/tkt-gemini/wsl)
+
+### Server
+
+Download Ubuntu Server ISO file [here](https://ubuntu.com/download/server)
+
+Next, use [Rufus](https://rufus.ie) to create a bootable USB drive and install the server
+
+### Tailscale
+
+**For server:**
+``` bash
+curl -fsSL https://tailscale.com/install.sh | sh
+```
+
+**For Windows:**
+```
+https://tailscale.com/download
 ```
