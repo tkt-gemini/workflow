@@ -13,51 +13,45 @@
 
 ---
 
-## Prerequisites
+## Machine Specifications
 
-| Machine | Requirement | Value |
-| --- | --- | --- |
-| **HP ZBook G11** | OS | Windows 11 |
-| | CPU | Intel Core Ultra 7 165H (22 cores) |
-| | RAM | 32 GB |
-| | GPU | NVIDIA RTX 1000 Ada (6 GB VRAM) |
-| | NPU | Intel AI Boost |
-| | Disk | 1 TB SSD |
-| **Dell Latitude 7290** | OS | Ubuntu 26.04 LTS (native) |
-| | CPU | Intel i5-8350U (4 cores / 8 threads) |
-| | RAM | 8 GB |
-| | GPU | None (Intel UHD 620) |
-| | Disk | 256 GB SSD |
+| Machine | OS | Disk | RAM | CPU | GPU-0 | GPU-1 | NPU |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| **ZBook G11** | Windows 11 Pro | 1 TB SSD | 32 GB | Intel(R) Core(TM) Ultra 7 165H | NVIDIA RTX 1000 Ada | Intel(R) Arc(TM) Pro Graphics | Intel(R) AI Boost |
+| **Latitude 7290** | Ubuntu 26.04 LTS (server) | 256 GB SSD | 8 GB | Intel(R) Core(TM) i5-8350U | `None` | Intel UHD Graphics 620 | `None` |
 
 ## Architecture
 
-```
-┌──────────────────────────────────────┐
-│ HP ZBook G11 - Primary Workstation   │
-├──────────────────────────────────────┤
-│ Windows Host + WSL2 workflow         │
-│ NVIDIA Driver (CUDA passthrough)     │
-└──────────────────┬───────────────────┘
-                   │ Tailscale
-┌──────────────────▼───────────────────┐
-│ Dell Latitude 7290 - Server          │
-├──────────────────────────────────────┤
-│ Ubuntu 26.04 LTS (native)            │
-│ Docker · Prometheus · Grafana        │
-└──────────────────────────────────────┘
-```
+<div align="center">
+
+<img src="./workflow.png" alt="Workflow" height="400">
+
+</div>
 
 ## Setup
 
-### WSL
+### WSL2
 
-Configuration for WSL2 workflow is [here](https://github.com/tkt-gemini/wsl)
+#### Install
+
+Launch your preferred Windows Terminal / Command Prompt / Powershell and install WSL:
+``` bash
+wsl.exe --install
+```
+
+Ensure you have the latest WSL kernel:
+```bash
+wsl.exe --update
+```
+
+#### Configuration
+Setup a Linux Development Environment for WSL2 is [here!](https://github.com/tkt-gemini/wsl)
 
 ### Server
 
-Download Ubuntu Server ISO file [here](https://ubuntu.com/download/server)
+Download Ubuntu Server ISO file [here!](https://ubuntu.com/download/server)
 
-Next, use [Rufus](https://rufus.ie) to create a bootable USB drive and install the server
+Next, use [Rufus](https://rufus.ie) to create a bootable USB drive and install the server ✨
 
 ### Tailscale
 
